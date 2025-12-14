@@ -3,6 +3,7 @@
    تصميم Mobile-First ومتجاوب
    يحتوي تعليقات بالعربية لشرح الأقسام
    يدعم ثيم فاتح/داكن
+   تعديل: إصلاح ألوان الثيم الداكن وإزالة "المربع" في الهيرو
    ========================= */
 
 /* ---------- متغيرات الهوية البصرية (فاتح) ---------- */
@@ -25,11 +26,13 @@
 
 /* ---------- Dark theme overrides ---------- */
 html.dark {
+  /* --off-white كان معرف كلون داكن مما جعل النص على الهيدر يختفي.
+     نضع هنا قيمة فاتحة متناسقة مع الخلفية الداكنة */
   --olive-dark: #dfeee6;        /* نص فاتح */
   --sand: #0f1720;
-  --off-white: #0b1220;
+  --off-white: #E6F0E8;        /* إصلاح: لون فاتح للهيدر والنص */
   --gold: #C9A24D;
-  --muted: #b3c1b6;
+  --muted: #a9b8af;
   --shadow: 0 8px 22px rgba(0,0,0,0.28);
   --glass: rgba(255,255,255,0.03);
   --bg: linear-gradient(180deg, #071013, #071217);
@@ -88,9 +91,10 @@ body{
 .site-title{font-weight:700; font-size:1.05rem}
 
 /* ---------- التنقل ---------- */
+/* استخدام المتغيرات لجعل الألوان تتكيف مع الثيم */
 .main-nav{display:flex; gap:10px; align-items:center}
 .main-nav .nav-link{
-  color:rgba(255,255,255,0.95);
+  color:var(--off-white);
   text-decoration:none;
   padding:8px 12px;
   border-radius:8px;
@@ -172,17 +176,26 @@ body{
 }
 .btn.large{padding:14px 22px; font-size:1.05rem}
 
-/* ---------- زخرفة الهيرو ---------- */
+/* ---------- زخرفة الهيرو ----------
+   استبدال "المربع" بزخرفة إهليلجية ناعمة لتتفادى المستطيل القبيح */
 .hero-decor{
   position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  height:100%;
-  opacity:0.85;
+  left:50%;
+  top:28%;
+  width:760px;
+  height:220px;
+  transform:translateX(-50%);
+  /* زخرفة ناعمة تعتمد على الذهب والخلفية لإضاءة خفيفة */
+  background: radial-gradient(ellipse at center, rgba(201,162,77,0.10) 0%, rgba(201,162,77,0.05) 18%, rgba(47,79,62,0.03) 40%, transparent 70%);
+  border-radius:140px;
+  opacity:0.95;
   pointer-events:none;
-  mix-blend-mode:screen;
+  mix-blend-mode: screen;
+  z-index:1;
 }
+/* لو كان هناك صورة داخل .hero-decor تظهر كمربع رمادي من المستحسن إخفاؤها أو تعديلها.
+   سطر أدناه يخفي أي صورة داخل الزخرفة — إذا تريد الاحتفاظ بصورة احذف هذا السطر. */
+.hero-decor img{display:none}
 
 /* ---------- الأقسام الرئيسية ---------- */
 .section{
